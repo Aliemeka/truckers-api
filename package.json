@@ -10,6 +10,7 @@
     "dev": "nodemon --config nodemon.json src/app.ts"
   },
   "dependencies": {
+    "@prisma/client": "^3.3.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "dayjs": "^1.10.7",
@@ -19,7 +20,7 @@
     "pg": "^8.7.1",
     "pino": "^7.0.5",
     "pino-pretty": "^7.1.0",
-    "typeorm": "^0.2.38",
+    "prisma": "^3.3.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TruckLocation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  longitude Float
+  latitude  Float
+  truck     Truck    @relation(fields: [truckId], references: [id])
+  truckId   Int
+  active    Boolean  @default(true)
+}
+
+model Truck {
+  id        Int             @id @default(autoincrement())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  name      String          @db.VarChar(255)
+  driver    String
+  range     Decimal
+  imageSrc  String          @default("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.lrsperformanceinc.com%2Fwp-content%2Fuploads%2F2019%2F08%2FScreen-Shot-2019-06-27-at-1.58.21-PM.png&f=1&nofb=1")
+  active    Boolean         @default(true)
+  locations TruckLocation[]
+}
