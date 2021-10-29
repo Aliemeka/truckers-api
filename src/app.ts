@@ -1,5 +1,4 @@
 import express from 'express';
-import { createConnection } from 'typeorm';
 import router from './api/router';
 
 import { port } from './config';
@@ -11,15 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-
-(async () => {
-  try {
-    await createConnection();
-    log.info('Database connected');
-  } catch (e) {
-    log.error('Failed to connect due to:', e);
-  }
-})();
 
 router(app);
 
