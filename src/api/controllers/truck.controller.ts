@@ -14,17 +14,23 @@ export interface Params extends core.ParamsDictionary {
 }
 
 export const getAllTrucks = async (req: Request, res: Response) => {
-  const trucks = await getTrucks();
-  if (trucks) {
-    return res.status(200).json(trucks);
+  try {
+    const trucks = await getTrucks();
+    if (trucks) {
+      return res.status(200).json(trucks);
+    }
+    return res.status(404).json({
+      error: 'No trunks found',
+    });
+  } catch (e: any) {
+    return res.status(500).json({
+      error: e.message,
+    });
   }
-  return res.status(404).json({
-    error: 'No trunks found',
-  });
 };
 
 export const getTruck = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.trunkId);
+  const id = parseInt(req.params.truckId);
   const truck = await getTruckById(id);
   if (truck) {
     return res.status(200).json(truck);
@@ -38,25 +44,35 @@ export const createNewTruck = async (
   req: Request<unknown, unknown, CreateTruck>,
   res: Response,
 ) => {
-  const { name, driver, range, imgSrc } = req.body;
-  const truck = await createTruck(name, driver, range, imgSrc);
-  if (truck) {
-    return res.status(200).json(truck);
+  try {
+    const { name, driver, range, imgSrc } = req.body;
+    const truck = await createTruck(name, driver, range, imgSrc);
+    if (truck) {
+      return res.status(200).json(truck);
+    }
+    return res.status(500).json({
+      error: 'Failed to create truck',
+    });
+  } catch (e: any) {
+    return res.status(500).json({
+      error: e.message,
+    });
   }
-  return res.status(500).json({
-    error: 'Failed to create truck',
-  });
 };
 
 export const editTruck = async (
   req: Request<Params, unknown, EditTruck>,
   res: Response<Truck | any>,
 ) => {
-  const { name, driver, range } = req.body;
-  const id = parseInt(req.params.trunkId);
-  const truck = await updateTrunk(id, name, driver, range);
-  if (truck) {
-    return res.status(200).json(truck);
+  try {
+    const { name, driver, range } = req.body;
+    const id = parseInt(req.params.truckId);
+    const truck = await updateTrunk(id, name, driver, range);
+    if (truck) {
+      return res.status(200).json(truck);
+    }
+    res.status(500).json({ error: 'Failed to update truck details' });
+  } catch (e: any) {
+    res.status(500).json({ error: e });
   }
-  res.status(500).json({ error: 'Failed to update truck details' });
 };

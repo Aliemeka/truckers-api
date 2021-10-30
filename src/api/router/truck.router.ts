@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/', getAllTrucks);
 router.post('/', createNewTruck);
-router.get('/:id', getTruck);
-router.put('/:id', editTruck);
+router.get('/:truckId', getTruck);
+router.put('/:truckId', editTruck);
 
 export default router;

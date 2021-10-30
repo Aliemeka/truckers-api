@@ -9,6 +9,7 @@ export const getTrucks = async () => {
     return trucks;
   } catch {
     logger.error('Failed to fetch trucks');
+    throw new Error('Error getting trucks');
   }
 };
 
@@ -17,6 +18,7 @@ export const getTruckById = async (id: number) => {
     return prisma.truck.findFirst({ where: { id } });
   } catch {
     logger.error('Failed to fetch truck');
+    throw new Error('Error getting truck');
   }
 };
 
@@ -37,7 +39,8 @@ export const createTruck = async (
     });
     return trunk;
   } catch {
-    logger.error('Error creating course');
+    logger.error('Error creating truck');
+    throw new Error('Error creating truck');
   }
 };
 
@@ -55,5 +58,6 @@ export const updateTrunk = async (
     return trunk;
   } catch {
     logger.error('Failed to update truck');
+    throw new Error('Error updating truck');
   }
 };
