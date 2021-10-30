@@ -9,7 +9,7 @@ import {
 } from '../services/truck.service';
 import { CreateTruck, EditTruck } from '../schemas/TruckSchema';
 
-export interface Params extends core.ParamsDictionary {
+interface Params extends core.ParamsDictionary {
   id: string;
 }
 

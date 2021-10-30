@@ -11,3 +11,8 @@ export interface EditTruck {
   range: number;
   imgSrc: string;
 }
+
+export interface CreateLocation {
+  longitude: number;
+  lattitude: number;
+}
